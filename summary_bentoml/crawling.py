@@ -55,6 +55,6 @@ def crawling(url):
     pre_contents = soup.select("#articleBodyContents")[0]
     pre_contents = preprocessing_div_contents(pre_contents)
 
-    driver.Quit()
+    driver.quit()
 
     return pre_contents

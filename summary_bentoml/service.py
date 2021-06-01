@@ -41,16 +41,10 @@ class TransformerService(bentoml.BentoService):
                 # Summarization Preprocessing
                 output = tokenizer.decode(summary_ids[0],
                                           skip_special_tokens=True)
-    
                 output = output[:len(output) - output[::-1].find('.')]
                 k = {"summary": str(output)}
-
                 return k
 
-
-@bentoml.env(pip_packages=["transformers", "torch"])
-@bentoml.artifacts([TransformersModelArtifact("BartModel")])
-class TransformerService(bentoml.BentoService):
     @bentoml.api(input=JsonInput(), batch=False)
     def url_summary(self, parsed_json):
         with torch.no_grad():

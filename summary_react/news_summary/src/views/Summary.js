@@ -33,7 +33,7 @@ class Summary extends Component {
       method: "post",
       url: "/summary",
       data: {
-        "text" : this.state.text
+        text : this.state.text
       },
     }).then();
     this.setState({ summary: summary, loading : null });

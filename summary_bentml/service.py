@@ -2,6 +2,7 @@ from bentoml.frameworks.transformers import TransformersModelArtifact
 import bentoml
 import torch
 from bentoml.adapters import JsonInput
+from crawling import crawling
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
@@ -57,11 +58,12 @@ class TransformerService(bentoml.BentoService):
     @bentoml.api(input=JsonInput(), batch=False)
     def url_summary(self, parsed_json):
         with torch.no_grad():
-            src_url = parsed_json.get("text")
+            src_url = parsed_json.get("url")
             ###
             # url parsing 하는 내용
             #  src_text = parsing 한 기사 본문 내용
             ###
+            src_text = crawling(src_url)
             model = self.artifacts.BartModel.get("model")
             model.to(device)
             model.eval()
@@ -91,6 +93,6 @@ class TransformerService(bentoml.BentoService):
                 output = tokenizer.decode(summary_ids[0],
                                           skip_special_tokens=True)
                 output = output[:len(output) - output[::-1].find('.')]
-                k = {"article": str(src_text), "summary": str(output)}
+                k = {"text": str(src_text), "summary": str(output)}
 
                 return k

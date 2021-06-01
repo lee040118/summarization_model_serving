@@ -1,12 +1,12 @@
 .textarea{
-    width:30%; 
+    width:50%; 
 	height:30px; 
     resize:none;
 }
 
 .Button{
     width: 120px;
-    left: 31%;
+    left: 51%;
     position: relative;
 }
 .Form{

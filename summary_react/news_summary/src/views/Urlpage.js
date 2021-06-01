@@ -6,7 +6,6 @@ import {
   Form,
   InputGroup ,
   Spinner,
-  Container
 } from 'react-bootstrap'
 
 import styles from './Urlpage.module.css';
@@ -56,7 +55,7 @@ class Summary extends Component {
               <InputGroup.Text>URL</InputGroup.Text>
             </InputGroup.Prepend>
             <FormControl className={styles.textarea} as="textarea" aria-label="With textarea" placeholder="URL 입력"  
-            value = {this.state.text}
+            value = {this.state.url}
             onChange = {this.handleChange}/>
           </InputGroup>
         </Form.Group>

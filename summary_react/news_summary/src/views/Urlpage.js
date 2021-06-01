@@ -20,7 +20,7 @@ class Summary extends Component {
   
   handleChange= (e) => {
     this.setState({
-        text : e.target.value 
+        url : e.target.value 
     });
     setTimeout(this.handleCheck, 100);       
   }

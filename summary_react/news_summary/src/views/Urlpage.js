@@ -32,7 +32,7 @@ class Summary extends Component {
       data: { text, summary },
     } = await axios({
       method: "post",
-      url: "http://210.117.181.114:5555/summary",
+      url: "/summary",
       data: {
         'url' : this.state.url
       },

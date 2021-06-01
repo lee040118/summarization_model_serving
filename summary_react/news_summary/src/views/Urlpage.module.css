@@ -1,0 +1,39 @@
+.textarea{
+    width:30%; 
+	height:30px; 
+    resize:none;
+}
+
+.Button{
+    width: 120px;
+    left: 31%;
+    position: relative;
+}
+.Form{
+    /* width: min-content; */
+    margin-left: 20px; 
+    /* position: relative; */
+}
+
+.header{
+    height: 120px;
+    background: #f3f3f3;
+}
+.header h1{
+    margin-left: 20px;
+    padding-top: 15px;
+    
+}
+
+.header p{
+    padding-left: 25px;
+    padding-top: 10x;  
+}
+
+.news{
+    margin: 25px; 
+}
+
+.news p{
+    margin-right: 10px;
+}

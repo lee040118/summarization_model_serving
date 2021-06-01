@@ -12,9 +12,7 @@ class TransformerService(bentoml.BentoService):
     @bentoml.api(input=JsonInput(), batch=False)
     def text_summary(self, parsed_json):
         with torch.no_grad():
-            print(parsed_json)
             src_text = parsed_json.get("text")
-            print(src_text)
             model = self.artifacts.BartModel.get("model")
             model.to(device)
             model.eval()
@@ -25,7 +23,6 @@ class TransformerService(bentoml.BentoService):
                                                   max_length=1024,
                                                   pad_to_max_length=True)[
                                 "input_ids"]]
-                print(test_doc)
 
                 # tensor, gpu
                 test_doc = torch.tensor(test_doc)
@@ -44,28 +41,15 @@ class TransformerService(bentoml.BentoService):
                 # Summarization Preprocessing
                 output = tokenizer.decode(summary_ids[0],
                                           skip_special_tokens=True)
-                print(output)
                 output = output[:len(output) - output[::-1].find('.')]
-                print(output)
                 k = {"summary": str(output)}
-
                 return k
 
-
-@bentoml.env(pip_packages=["transformers", "torch"])
-@bentoml.artifacts([TransformersModelArtifact("BartModel")])
-class TransformerService(bentoml.BentoService):
     @bentoml.api(input=JsonInput(), batch=False)
     def url_summary(self, parsed_json):
         with torch.no_grad():
             src_url = parsed_json.get("url")
-            ###
-            # url parsing 하는 내용
-            #  src_text = parsing 한 기사 본문 내용
-            ###
-            print(src_url)
             src_text = crawling(src_url)
-            print(src_text)
             model = self.artifacts.BartModel.get("model")
             model.to(device)
             model.eval()

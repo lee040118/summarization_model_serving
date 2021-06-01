@@ -16,18 +16,18 @@ class Summary extends Component {
     input : "",
     text : "",
     summary : "",
-    loading : null
+    loading : null,
   };
   
   handleChange= (e) => {
     this.setState({
-        text : e.target.value 
+        input : e.target.value 
     });
     setTimeout(this.handleCheck, 100);       
   }
   submit = async (e) => {
     e.preventDefault();
-    this.setState( {loading : true, text : input});
+    this.setState( {loading : true, text : this.state.input , summary : ""});
     const {
       data: { summary },
     } = await axios({
@@ -38,7 +38,7 @@ class Summary extends Component {
       },
     }).then();
     this.setState({ input : "", summary: summary, loading : null });
-    // console.log(this.state.summary)
+    console.log(this.state.summary)
   };
 
 

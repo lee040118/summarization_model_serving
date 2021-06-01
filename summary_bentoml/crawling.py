@@ -1,11 +1,10 @@
 from selenium import webdriver
 from bs4 import BeautifulSoup
-import time, os
-import pandas as pd
+import os
 import re
-import json
 
-BASE_DIR = './tmp/project'
+
+BASE_DIR = '/tmp/project'
 web = os.path.join(BASE_DIR, 'chromedriver')
 
 
@@ -25,7 +24,8 @@ def preprocessing_div_contents(x):
 
     main_contents = ' '.join(str(x).split('\n')[8:-2])
 
-    inner_tags = list(map(lambda x: x[1:], re.findall(find_re['find_tag'], str(main_contents))))
+    inner_tags = list(map(lambda x: x[1:], re.findall(find_re['find_tag'],
+                                                      str(main_contents))))
 
     for tag in inner_tags:
         try:
@@ -42,29 +42,19 @@ def preprocessing_div_contents(x):
 
 def crawling(url):
 
-    data_list = []
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('window-size=1920x1080')
     options.add_argument("--disable-gpu")
-
     driver = webdriver.Chrome(web, options=options)
     driver.get(url)
-    
-    title = driver.find_element_by_xpath('//*[@id="articleTitle"]').text
-    date = driver.find_element_by_xpath('//*[@id="main_content"]/div[1]/div[3]/div/span[1]').text
-    contents = driver.find_element_by_xpath('//*[@id="articleBodyContents"]').text
-
     req = driver.page_source
     soup = BeautifulSoup(req, 'html.parser')
     pre_contents = soup.select("#articleBodyContents")[0]
     pre_contents = preprocessing_div_contents(pre_contents)
 
-    image_url = get_poster_url()
-    news_url = driver.current_url
-
-    driver.close()
+    driver.Quit()
 
     return pre_contents

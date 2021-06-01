@@ -63,7 +63,9 @@ class TransformerService(bentoml.BentoService):
             # url parsing 하는 내용
             #  src_text = parsing 한 기사 본문 내용
             ###
+            print(src_url)
             src_text = crawling(src_url)
+            print(src_text)
             model = self.artifacts.BartModel.get("model")
             model.to(device)
             model.eval()

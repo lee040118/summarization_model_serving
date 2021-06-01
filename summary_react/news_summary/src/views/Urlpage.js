@@ -37,7 +37,7 @@ class Summary extends Component {
         url : this.state.url
       },
     }).then();
-    this.setState({ text : text, summary: summary, loading : null });
+    this.setState({ url : "" ,text : text, summary: summary, loading : null });
     console.log(this.state.summary)
   };
 

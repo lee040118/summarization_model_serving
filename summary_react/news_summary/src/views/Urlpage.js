@@ -26,6 +26,11 @@ class Summary extends Component {
   }
   submit = async (e) => {
     e.preventDefault();
+    if(this.state.url == 0)
+    {
+      window.alert("URL을 입력하세요")
+      return
+    }
     this.setState( {loading : true} );
     const {
       data: { text, summary },
@@ -37,7 +42,6 @@ class Summary extends Component {
       },
     }).then();
     this.setState({ url : "" ,text : text, summary: summary, loading : null });
-    console.log(this.state.summary)
   };
 
 

@@ -6,7 +6,6 @@ import {
   Form,
   InputGroup ,
   Spinner,
-  Container
 } from 'react-bootstrap'
 import styles from './Summary.module.css';
 
@@ -25,20 +24,28 @@ class Summary extends Component {
     });
     setTimeout(this.handleCheck, 100);       
   }
+
+
   submit = async (e) => {
     e.preventDefault();
-    this.setState( {loading : true, text : this.state.input , summary : ""});
-    const {
-      data: { summary },
-    } = await axios({
-      method: "post",
-      url: '/text_summary',
-      data: {
-        text : this.state.text
-      },
-    }).then();
-    this.setState({ input : "", summary: summary, loading : null });
-    console.log(this.state.summary)
+    if(this.state.input == 0)
+    {
+      window.alert("기사를 입력하세요")
+    }
+    else{
+      this.setState( { loading : true, text : this.state.input , summary : "" });
+      const {
+        data: { summary },
+      } = await axios({
+        method: "post",
+        url: '/text_summary',
+        data: {
+          text : this.state.input
+        },
+      }).then();
+      this.setState({ input : "", summary: summary, loading : null });
+      console.log(this.state.summary)
+    }
   };
 
 

@@ -30,8 +30,9 @@ class Summary extends Component {
     const {
       data: { summary },
     } = await axios({
+//	headers : {"Content-Type": "application/json"},
       method: "post",
-      url: "/summary",
+      url: '/summary',
       data: {
         text : this.state.text
       },

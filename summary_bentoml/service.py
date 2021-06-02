@@ -13,6 +13,11 @@ class TransformerService(bentoml.BentoService):
     def text_summary(self, parsed_json):
         with torch.no_grad():
             src_text = parsed_json.get("text")
+
+            if src_text == "":
+                output = "기사를 입력하시오."
+                k = {"summary": str(output)}
+                return k
             model = self.artifacts.BartModel.get("model")
             model.to(device)
             model.eval()
@@ -41,9 +46,12 @@ class TransformerService(bentoml.BentoService):
                 # Summarization Preprocessing
                 output = tokenizer.decode(summary_ids[0],
                                           skip_special_tokens=True)
-                output = output[:len(output) - output[::-1].find('.')]
-                k = {"summary": str(output)}
-                return k
+                k = output.split('다.')
+                for sent in range(len(k) - 1):
+                    k[sent] = k[sent] + "다."
+                output = k[:-1]
+                text_summary = {"summary": str(output[0])}
+                return text_summary
 
     @bentoml.api(input=JsonInput(), batch=False)
     def url_summary(self, parsed_json):
@@ -78,7 +86,10 @@ class TransformerService(bentoml.BentoService):
                 # Summarization Preprocessing
                 output = tokenizer.decode(summary_ids[0],
                                           skip_special_tokens=True)
-                output = output[:len(output) - output[::-1].find('.')]
-                k = {"text": str(src_text), "summary": str(output)}
+                k = output.split('다.')
+                for sent in range(len(k) - 1):
+                    k[sent] = k[sent] + "다."
+                output = k[:-1]
+                url_summary = {"text": str(src_text), "summary": str(output[0])}
 
-                return k
+                return url_summary

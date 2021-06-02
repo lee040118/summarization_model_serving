@@ -13,30 +13,31 @@ import styles from './Summary.module.css';
 
 class Summary extends Component {
   state = {
+    input : "",
     text : "",
     summary : "",
-    loading : null
+    loading : null,
   };
   
   handleChange= (e) => {
     this.setState({
-        text : e.target.value 
+        input : e.target.value 
     });
     setTimeout(this.handleCheck, 100);       
   }
   submit = async (e) => {
     e.preventDefault();
-    this.setState( {loading : true} );
+    this.setState( {loading : true, text : this.state.input , summary : ""});
     const {
       data: { summary },
     } = await axios({
       method: "post",
-      url: "/summary",
+      url: '/text_summary',
       data: {
         text : this.state.text
       },
     }).then();
-    this.setState({ summary: summary, loading : null });
+    this.setState({ input : "", summary: summary, loading : null });
     console.log(this.state.summary)
   };
 
@@ -59,7 +60,7 @@ class Summary extends Component {
               <InputGroup.Text>본문</InputGroup.Text>
             </InputGroup.Prepend>
             <FormControl className={styles.textarea} as="textarea" aria-label="With textarea" placeholder="기사 본문 입력"  
-            value = {this.state.text}
+            value = {this.state.input}
             onChange = {this.handleChange}/>
           </InputGroup>
         </Form.Group>

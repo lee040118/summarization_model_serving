@@ -32,12 +32,12 @@ class Summary extends Component {
       data: { text, summary },
     } = await axios({
       method: "post",
-      url: "/summary",
+      url: "/url_summary",
       data: {
-        'url' : this.state.url
+        url : this.state.url
       },
     }).then();
-    this.setState({ text : text, summary: summary, loading : null });
+    this.setState({ url : "" ,text : text, summary: summary, loading : null });
     console.log(this.state.summary)
   };
 

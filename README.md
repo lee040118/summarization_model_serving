@@ -1,5 +1,8 @@
 # Summarization_model_serving
 
+## 프로젝트 개요
+> - 기사 본문이 주어졌을 때 원문의 핵심을 파악할 수 있도록 요약문을 만드는 요약 시스템을 개발하려고 한다.
+> - 인터넷 기사를 요약해주는 요약 시스템을 개발하고자 한다. 단순히 프로그램 제작이 아닌 실제 서버 구축을  통해 여러 사람이 사용할 수 있는 서비스를 제공하고자 했다. 
 
 ## 요약 모델 개요
 ![개요](image/model.png)
@@ -15,6 +18,14 @@
 
 2. Client들은 원하는 모드를 통해 요약 기사를 제공받을 수 있다.
 
+## 프로젝트 결과
+### 사용자 요약
+- 원하는 뉴스 기사 요약 가능
+
+![결과1](image/web_ex1.png)
+
+### URL 요약
+![결과2](image/web_ex2.png)
 
 ## 참고 문헌
 - BART: Denoising Sequence-to-Sequence Pre-training for Natural Language Generation, 		Translation, and Comprehension(2019, 10)

@@ -1,4 +1,4 @@
-# ummarization_model_serving
+# Summarization_model_serving
 
 
 # 요약 모델 개요
